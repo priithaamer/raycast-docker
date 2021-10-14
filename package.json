@@ -1,0 +1,44 @@
+{
+  "name": "docker",
+  "title": "Docker",
+  "description": "Manage Docker with Raycast",
+  "icon": "command-icon.png",
+  "author": "priithaamer",
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "container_list",
+      "title": "List Docker Containers",
+      "subtitle": "",
+      "description": "List All Docker Containers",
+      "mode": "view"
+    },
+    {
+      "name": "image_list",
+      "title": "List Installed Docker Images",
+      "subtitle": "",
+      "description": "List Installed Docker images",
+      "mode": "view"
+    }
+  ],
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop"
+  },
+  "dependencies": {
+    "@raycast/api": "^1.25.0",
+    "dockerode": "^3.3.1",
+    "node-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/dockerode": "^3.3.0",
+    "@types/node": "~16.10.0",
+    "@types/react": "^17.0.28",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "react-devtools": "^4.19.2",
+    "typescript": "^4.4.3"
+  }
+}
