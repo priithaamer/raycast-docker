@@ -1,6 +1,6 @@
 import { List } from "@raycast/api";
 import { useEffect, useState } from "react";
-import Dockerode, { ContainerInfo } from "dockerode";
+import Dockerode, { ContainerInfo } from "@priithaamer/dockerode";
 
 export default function ContainerList() {
   const [containers, setContainers] = useState<{ containers: ContainerInfo[] }>({ containers: [] });
