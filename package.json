@@ -15,7 +15,7 @@
     },
     {
       "name": "image_list",
-      "title": "List Installed Docker Images",
+      "title": "Docker Images",
       "subtitle": "",
       "description": "List Installed Docker images",
       "mode": "view"
