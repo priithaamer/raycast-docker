@@ -8,7 +8,7 @@
   "commands": [
     {
       "name": "container_list",
-      "title": "List Docker Containers",
+      "title": "Docker Containers",
       "subtitle": "",
       "description": "List All Docker Containers",
       "mode": "view"
