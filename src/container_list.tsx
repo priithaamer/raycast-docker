@@ -1,6 +1,6 @@
-import { List } from "@raycast/api";
-import { useEffect, useState } from "react";
-import Dockerode, { ContainerInfo } from "@priithaamer/dockerode";
+import { List } from '@raycast/api';
+import { useEffect, useState } from 'react';
+import Dockerode, { ContainerInfo } from '@priithaamer/dockerode';
 
 export default function ContainerList() {
   const [containers, setContainers] = useState<{ containers: ContainerInfo[] }>({ containers: [] });
@@ -17,7 +17,7 @@ export default function ContainerList() {
   return (
     <List>
       {containers.containers.map((container) => (
-        <List.Item key={container.Id} title={container.Names.join(", ")} />
+        <List.Item key={container.Id} title={container.Names.join(', ')} />
       ))}
     </List>
   );
