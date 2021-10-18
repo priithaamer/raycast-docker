@@ -2,7 +2,7 @@
   "name": "docker",
   "title": "Docker",
   "description": "Manage Docker with Raycast",
-  "icon": "command-icon.png",
+  "icon": "docker-icon.png",
   "author": "priithaamer",
   "license": "MIT",
   "commands": [
@@ -26,8 +26,8 @@
     "dev": "ray develop"
   },
   "dependencies": {
-    "@raycast/api": "^1.25.0",
     "@priithaamer/dockerode": "^3.3.1-priithaamer.1",
+    "@raycast/api": "^1.25.0",
     "node-fetch": "^3.0.0"
   },
   "devDependencies": {
