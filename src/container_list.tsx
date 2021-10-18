@@ -1,10 +1,12 @@
 import { ActionPanel, Color, Detail, Icon, List } from '@raycast/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Dockerode, { ContainerInfo } from '@priithaamer/dockerode';
 
 const containerName = (container: ContainerInfo) => container.Names.map((name) => name.replace(/^\//, '')).join(', ');
 
 export default function ContainerList() {
+  const docker = useMemo(() => new Dockerode(), []);
+
   const [containers, setContainers] = useState<{ containers: ContainerInfo[] }>({ containers: [] });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>();
@@ -13,7 +15,6 @@ export default function ContainerList() {
     async function fetchContainers() {
       setLoading(true);
       try {
-        const docker = new Dockerode();
         const containers = await docker.listContainers({ all: true });
         setContainers({ containers });
       } catch (error) {
@@ -25,7 +26,7 @@ export default function ContainerList() {
       }
     }
     fetchContainers();
-  }, []);
+  }, [docker]);
 
   if (error) {
     return <Detail markdown={`## Error connecting to Docker\n\n${error.message}\n`} />;
@@ -45,12 +46,10 @@ export default function ContainerList() {
               {containerInfo.State === 'running' && (
                 <ActionPanel.Item
                   title="Stop Container"
+                  shortcut={{ modifiers: ['cmd', 'shift'], key: 'w' }}
                   onAction={async () => {
-                    const docker = new Dockerode();
                     setLoading(true);
-                    const container = docker.getContainer(containerInfo.Id);
-                    await container.stop();
-
+                    await docker.getContainer(containerInfo.Id).stop();
                     const containers = await docker.listContainers({ all: true });
                     setContainers({ containers });
                     setLoading(false);
@@ -60,18 +59,29 @@ export default function ContainerList() {
               {containerInfo.State !== 'running' && (
                 <ActionPanel.Item
                   title="Start Container"
+                  shortcut={{ modifiers: ['cmd', 'shift'], key: 'r' }}
                   onAction={async () => {
-                    const docker = new Dockerode();
                     setLoading(true);
-                    const container = docker.getContainer(containerInfo.Id);
-                    await container.start();
-
+                    await docker.getContainer(containerInfo.Id).start();
                     const containers = await docker.listContainers({ all: true });
                     setContainers({ containers });
                     setLoading(false);
                   }}
                 />
               )}
+              <ActionPanel.Item
+                title="Remove Container"
+                icon={Icon.Trash}
+                shortcut={{ modifiers: ['cmd', 'shift'], key: 'x' }}
+                onAction={async () => {
+                  setLoading(true);
+                  await docker.getContainer(containerInfo.Id).remove();
+
+                  const containers = await docker.listContainers({ all: true });
+                  setContainers({ containers });
+                  setLoading(false);
+                }}
+              />
             </ActionPanel>
           }
         />
